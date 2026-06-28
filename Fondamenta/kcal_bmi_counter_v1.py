@@ -25,7 +25,8 @@ bmi = weight / (height * height)
 #we can play with conversion functions to avoid print problems but we convert the values to string only in the print statements
 #to preserve their original data types
 
-print('Hi ' + name + '! your daily intake is approximately ' + str(kcal) + ' to maintain your weigh!')
-
-print('Your BMI is approximately '+ str(bmi))
+#print('Hi ' + name + '! your daily intake is approximately ' + str(kcal) + ' to maintain your weigh!')
+print(f'Hi! {name} your daily intake is approximately {str(kcal)} to maintain your weigh!')
+#print('Your BMI is approximately '+ str(bmi))
+print(f'Your BMI is approximately {str(bmi)}')
 
