@@ -32,4 +32,11 @@ is_good = False
 #that's a boolean variable, it can be either True or False 
 #we can combine in a print statement a string and a variable, just by putting the string in quotes and the variable without quotes after a comma
 
+#complex is used for equations
+
+variable = 1j
+
 print("It is good?", is_good)
+
+print(variable)
+print(type(variable))
