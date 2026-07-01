@@ -1,4 +1,4 @@
-course = 'Python for Dummies'
+course = '    Python for Dummies     '
 # it gives the length of the string
 # we can use it to limit user input
 # it can be used in many applications
@@ -19,5 +19,10 @@ print(message.replace('fuck' , '****'))
 print(message.replace('f', 'd'))
 # "in" returns True if a substring exists
 # otherwise it returns False
+#The strip() method removes any whitespace from the beginning or the end
+print(course.strip())
+#the split() method return a list where the text between the separator becomes the list items
+print(course.split(","))
 print('fuck' in message)
 print('duck' in message)
+

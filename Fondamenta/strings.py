@@ -2,7 +2,9 @@
 #the same works for adding the double quotes by adding single quotes
 saluto = "Hi! i'm gabriele"
 print(saluto)
-leone = 'I do like "75lbs bicep curl" for 5 sets'
+#leone = 'I do like "75lbs bicep curl" for 5 sets'
+#it also works with escape character
+leone = "I do like \" 75lbs bicep curl \" for 5 sets"
 print(leone)
 message = '''
     i'm gabriele
