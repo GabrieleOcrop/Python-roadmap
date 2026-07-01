@@ -13,3 +13,9 @@ x = 10
 #less characters and it work also with substract 
 x += 3
 print(x)
+
+#operators precedence
+#1. exponentation,
+#2. Multiplication or division
+#3. addition or subtraction
+#he can follow the parenthesis
