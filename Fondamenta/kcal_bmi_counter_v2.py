@@ -7,13 +7,6 @@ def clear_console():
     # 'cls' is for Windows, 'clear' is for Mac/Linux
     os.system('cls' if os.name == 'nt' else 'clear')
 
-
-def verify(choose):
-    if choose == "yes":
-        print()
-    else:
-        quit()
-
 def male_kcal(age,height,weight):
     return (
             (10*weight) 
@@ -41,7 +34,7 @@ clear_console()
 
 print("Kcal and bmi counter v2 made by nothing to do!")
 name = input("What's your name? :")
-genre = input("Are you male or female? :").strip().lower()
+genre = input("Are you male or female? :").strip().lower()   
 age = input("How old are you? :")
 height = input("How tall are you(cm)? :")
 weight = input("How much do you weight(kgs)? :")

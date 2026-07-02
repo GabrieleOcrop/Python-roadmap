@@ -13,10 +13,11 @@ def clear_console():
 secret_number = random.randint(0, 10)
 try_counter = 0
 try_limits = 5
-while try_counter <= try_limits:
+while try_counter < try_limits:
     input_number = int(input("Try to guess the number! "))
     try_counter += 1
     if input_number == secret_number:
         print("You WON!")
-        quit()
-print("You Lost!!")
+        break
+else:    
+    print("You Lost!!")
