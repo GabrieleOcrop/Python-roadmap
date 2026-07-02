@@ -1,4 +1,4 @@
-is_hot = False
+'''is_hot = False
 is_cold = True
 # This function uses the global variables defined above.
 # Since it doesn't have parameters, it automatically reads
@@ -18,3 +18,13 @@ def weather():
         print("Don't worry! enjoy your day")
 #to execute this requires the results like this weather(true, false)
 weather()
+'''
+
+name = "Nicaraguapower"
+
+if len(name) < 3:
+    print("Name must be at least 3 characters")
+elif len(name) > 3 and len(name) < 10:
+    print("Name looks fine!")
+else:
+    print("Name must be have some problems!")

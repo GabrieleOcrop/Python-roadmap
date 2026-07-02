@@ -45,6 +45,15 @@ genre = input("Are you male or female? :").strip().lower()
 age = input("How old are you? :")
 height = input("How tall are you(cm)? :")
 weight = input("How much do you weight(kgs)? :")
+
+if not name:
+    name == "User"
+elif not genre or not age or not height or not weight:
+    print("Some fields are empty!")
+    quit()
+else:
+    quit()
+
 clear_console()
 
 input_data = f'Your name is {name} and you are a {genre}. You are {age} years old, you are tall {height}cm and your weight is {weight}kgs'
