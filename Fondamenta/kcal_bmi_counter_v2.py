@@ -12,66 +12,28 @@ def clear_console():
     # 'cls' is for Windows, 'clear' is for Mac/Linux
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def get_name():
-    while True:
-        name = input("What's your name? :").strip()
-        if not name:
-            print("Name field cannot be empty!")
-        elif (len(name) < 3) or (len(name) > 16):
-            print("Name field lenght must be from 3 to 16 characters")
-        elif any(char.isdigit() for char in name):
-            print("Name field cannot accept numbers")
-        else:
-            return name
+#Functions to get values
 
-def get_genre():
-    while True:
-        genre = input("Are you male or female? :")
-        if not genre:
-            print("Genre field cannot be empty!")
-        elif genre.strip().lower() not in allowed_genre_responses:
-            print("genre field accept only male/female genres! Don't get offended :|")
-        else:
-            return genre
+def ask_name():
+    name = input("What's your name? :").strip()
+    return name
 
-def get_age():
-    while True:
-        age = input("How old are you? :")
-        if not age:
-            print("Age field cannot be empty!")
-        elif not age.isdigit(): #is the string age full of numbers? yes; there are some characters into the string? error
-            print("Stop playing dude -.-")
-        elif (int(age) < 4):
-            print("You are too child to use that! Go play around!")
-        elif (int(age) > 110):
-            print("Seems to be an error in age input!")
-        else:
-            return int(age)
+def ask_genre():
+    genre = input("Are you male or female? :")
+    return genre
+
+def ask_age():
+    age = input("How old are you? :")
+    return age
 
 
-def get_height():
-    while True:
-        height = input("How tall are you? Be sure that's in centimeters! :")
-        if not height:
-            print("Height field cannot be empty!")
-        elif not height.isdigit():
-            print("Stop playing dude -.-")
-        else:
-            asking = input("Are you sure that you put the right value? :")
-            if asking.lower() in allowed_yes_responses:
-                return int(height)
+def ask_height():
+    height = input("How tall are you? Be sure that's in centimeters! :")
+    return height
 
-def get_weight():
-    while True:
-        weight = input("How much do you weight? Be sure that's in kilograms! :")
-        if not weight:
-            print("Weight field cannot be empty!")
-        elif not weight.replace(".", "", 1).isdigit():
-            print("Stop playing dude -.-")
-        else:
-            asking = input("Are you sure that you put the right value? :")
-            if asking.lower() in allowed_yes_responses:
-                return float(weight)
+def ask_weight():
+    weight = input("How much do you weight? Be sure that's in kilograms! :")
+    return weight
 
 def get_workouts_per_week():
     while True:
@@ -87,9 +49,6 @@ def get_workouts_per_week():
         else:
             return int(workouts_per_week)
 
-        
-
-
 def get_numero_daily_steps():
     while True:
         daily_steps = input("How many steps do you usually take each day? :")
@@ -102,6 +61,91 @@ def get_numero_daily_steps():
         else:
             return int(daily_steps)
 
+#Functions to validate!
+
+def validate_name(name):
+    if not name:
+        raise ValueError("Name cannot be empty!")
+    elif (len(name) < 3) or (len(name) > 16):
+        raise ValueError("Name seems to be invalid!")
+    elif any(char.isdigit() for char in name):
+        raise ValueError("Name doesn't accept numbers!")
+
+def validate_genre(genre):
+    if not genre:
+        raise ValueError("Genre cannot be empty!")
+    elif genre not in allowed_genre_responses:
+        raise ValueError("Genre accepts only Male and Female!")
+
+def validate_age(age):
+    if not age:
+        raise ValueError("Age cannot be empty!")
+    elif not age.isdigit():
+        raise ValueError("Age cannot accepts characters!")
+    elif (int(age) > 120):
+        raise ValueError("Age input seems to be invalid!")
+
+def validate_height(height):
+    if not height:
+        raise ValueError("Height cannot be empty!")
+    elif not height.replace(".", "", 1).isdigit():
+        raise ValueError("Height value seems to be invalid")
+
+def validate_weight(weight):
+    if not weight:
+        raise ValueError("Weight cannot be empty!")
+    elif not weight.replace(".", "", 1).isdigit():
+        raise ValueError("Weight value seems to be invalid")
+    
+
+#functions to get the value!
+
+def get_name():
+    while True:    
+        try:
+            name = ask_name()
+            validate_name(name)
+            return name
+        except ValueError as error:
+            print(f'An error has happened! => {error}')
+
+def get_genre():
+    while True:
+        try:
+            genre = ask_genre()
+            validate_genre(genre)
+            return genre
+        except ValueError as error:
+            print(f'An error has happened! => {error}|')
+
+def get_age():
+    while True:
+        try:
+            age = ask_age()
+            validate_age(age)
+            return int(age)
+        except ValueError as error:
+            print(f'An error has happened => {error}')
+
+def get_height():
+    while True:
+        try:
+            height = ask_height()
+            validate_height(height)
+            return float(height)
+        except ValueError as error:
+            print(f'An error has happened => {error}')
+
+def get_weight():
+    while True:
+        try:
+            weight = ask_weight()
+            validate_weight(weight)
+            return float(weight)
+        except ValueError as error:
+            print(f'An error has happened => {error}')            
+        
+#calculations
 
 def male_kcal(age,height,weight):
     return (
@@ -170,8 +214,15 @@ def TDEE_calculator(life_style_score, kcal_value):
 #main program
 clear_console()
 
-print("Kcal, bmi and TDEE counter v3 made by nothing to do!")
-while True:
+print("Kcal, bmi and TDEE counter v3.1 made by nothing to do!")
+
+name = get_name()
+genre = get_genre() 
+age = get_age()
+height = get_height()
+weight = get_weight()       
+
+'''while True:
     name = get_name()
     genre = get_genre()
     age = get_age()
@@ -205,4 +256,4 @@ while True:
         continue
     else:
         break
-
+'''
