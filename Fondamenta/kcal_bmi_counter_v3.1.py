@@ -35,31 +35,13 @@ def ask_weight():
     weight = input("How much do you weight? Be sure that's in kilograms! :")
     return weight
 
-def get_workouts_per_week():
-    while True:
-        workouts_per_week = input("How many workouts do you do per week? :")
-        if not workouts_per_week:
-            print("Number of workouts per week field cannot be empty!")
-        elif not workouts_per_week.isdigit():
-            print("stop playing dude -.-")
-        elif (int(workouts_per_week) < 0):
-            print("Please stop! You can't do negative workouts!")
-        elif (int(workouts_per_week) > 7):
-            print("I dunno if you are too crazy to do this shit! Please take a team and don't use this crap! or revise :)")
-        else:
-            return int(workouts_per_week)
+def ask_workouts_per_week():
+    workouts_per_week = input("How many workouts do you do per week? :")
+    return workouts_per_week
 
-def get_numero_daily_steps():
-    while True:
+def ask_daily_steps():
         daily_steps = input("How many steps do you usually take each day? :")
-        if not daily_steps:
-            print("passi giornalieri field cannot be empty!")
-        elif not daily_steps.isdigit():
-            print("stop playing dude! -.-")
-        elif (int(daily_steps) > 20000):
-            print("I dunno if you are too crazy to do this shit! Please take a team and don't use this crap! or revise :)")
-        else:
-            return int(daily_steps)
+        return daily_steps
 
 #Functions to validate!
 
@@ -83,7 +65,7 @@ def validate_age(age):
     elif not age.isdigit():
         raise ValueError("Age cannot accepts characters!")
     elif (int(age) > 120):
-        raise ValueError("Age input seems to be invalid!")
+        raise ValueError("Age input seems to be too high!")
 
 def validate_height(height):
     if not height:
@@ -96,6 +78,20 @@ def validate_weight(weight):
         raise ValueError("Weight cannot be empty!")
     elif not weight.replace(".", "", 1).isdigit():
         raise ValueError("Weight value seems to be invalid")
+
+def validate_workouts_per_week(workouts_per_week):
+    if not workouts_per_week:
+        raise Exception("Your workouts number must have a number! 0 is just fine")
+    elif not workouts_per_week.isdigit():
+        raise Exception("Workouts per week accepts only numbers!")
+    elif int(workouts_per_week) > 7:
+        raise Exception("That version counts only 1 workout per day! Revise with 7")
+
+def validate_daily_steps(daily_steps):
+    if not daily_steps:
+        raise Exception("Daily Steps cannot be empty!")
+    elif not daily_steps.isdigit():
+        raise Exception("Daily steps accept only numbers!")
     
 
 #functions to get the value!
@@ -143,7 +139,25 @@ def get_weight():
             validate_weight(weight)
             return float(weight)
         except ValueError as error:
-            print(f'An error has happened => {error}')            
+            print(f'An error has happened => {error}')
+
+def get_workouts_per_week():
+    while True:
+        try:
+            workouts_per_week = ask_workouts_per_week()  
+            validate_workouts_per_week(workouts_per_week)
+            return int(workouts_per_week)    
+        except ValueError as error:
+            print(f'An error has happened => {error}')
+
+def get_daily_steps():
+    while True:
+        try:
+            daily_steps = ask_daily_steps()
+            validate_daily_steps(daily_steps)
+            return int(daily_steps)
+        except ValueError as error:
+            print(f'An error has happened => {error}')      
         
 #calculations
 
@@ -220,40 +234,23 @@ name = get_name()
 genre = get_genre() 
 age = get_age()
 height = get_height()
-weight = get_weight()       
+weight = get_weight()
+daily_steps = get_daily_steps()
+workouts_per_week = get_workouts_per_week()       
 
-'''while True:
-    name = get_name()
-    genre = get_genre()
-    age = get_age()
-    height = get_height()
-    weight = get_weight()
-    daily_steps = get_numero_daily_steps()
-    workouts_per_week = get_workouts_per_week()
-
-    daily_steps_score = daily_steps_score_calculator(daily_steps)
-    workouts_per_week_score = workouts_per_week_calculator(workouts_per_week)
-    life_style_score = score_life_style_calculator(daily_steps_score, workouts_per_week_score)
-    
-    input_data = f'Your name is {name} and you are a {genre}. You are {age} years old, you are tall {height}cm and your weight is {weight}kgs. \n Your daily steps is around {daily_steps} and you do {workouts_per_week} workouts every week'
-    print(input_data) 
-    choose = input("That's correct? :").lower()
-    if choose.lower() in allowed_yes_responses:
-        bmi_value = bmi_calculation(height,weight)
-        if genre.strip().lower() == "female" or genre.strip().lower() == "f":
-            kcal_value = female_kcal(age, height, weight)
-            TDEE = TDEE_calculator(life_style_score, kcal_value)
-            message = f'Your BMI is {bmi_value:.2f} and your BMR {round(kcal_value)} per day! \n Your life_style score is {life_style_score} so you have to stay around {round(TDEE)} kcals per day!'
-            print(message)
-            break
-        elif genre.strip().lower() == "male" or genre.strip().lower() == "m":
-            kcal_value = male_kcal(age, height, weight)
-            TDEE = TDEE_calculator(life_style_score, kcal_value)
-            message = f'Your BMI is {bmi_value:.2f} and your BMR {round(kcal_value)} per day! \n Your movement score is {life_style_score} so you have to stay around {round(TDEE)} kcals per day!'
-            print(message)
-            break
-    elif choose.lower() in allowed_no_responses:
-        continue
-    else:
-        break
-'''
+daily_steps_score = daily_steps_score_calculator(daily_steps)
+workouts_per_week_score = workouts_per_week_calculator(workouts_per_week)
+life_style_score = score_life_style_calculator(daily_steps_score, workouts_per_week_score)
+input_data = f'Your name is {name} and you are a {genre}. You are {age} years old, you are tall {height}cm and your weight is {weight}kgs. \n Your daily steps is around {daily_steps} and you do {workouts_per_week} workouts every week'
+print(input_data) 
+bmi_value = bmi_calculation(height,weight)
+if genre.strip().lower() == "female" or genre.strip().lower() == "f":
+    kcal_value = female_kcal(age, height, weight)
+    TDEE = TDEE_calculator(life_style_score, kcal_value)
+    message = f'Your BMI is {bmi_value:.2f} and your BMR {round(kcal_value)} per day! \n Your life_style score is {life_style_score} so you have to stay around {round(TDEE)} kcals per day!'
+    print(message)
+elif genre.strip().lower() == "male" or genre.strip().lower() == "m":
+    kcal_value = male_kcal(age, height, weight)
+    TDEE = TDEE_calculator(life_style_score, kcal_value)
+    message = f'Your BMI is {bmi_value:.2f} and your BMR {round(kcal_value)} per day! \n Your movement score is {life_style_score} so you have to stay around {round(TDEE)} kcals per day!'
+    print(message)
